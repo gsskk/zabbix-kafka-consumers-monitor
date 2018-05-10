@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.0</version>
-    <date>2018-05-10T08:41:16Z</date>
+    <date>2018-05-10T09:19:55Z</date>
     <groups>
         <group>
             <name>Kafka Templates</name>
@@ -148,8 +148,8 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template Kafka consumer groups:Kafka.GetConsumerGroupMetrics[{$KAFKA_NODE},{#CONSUMER_GROUP},lag].time()}&gt;50</expression>
-                            <name>{#CONSUMER_GROUP} Lag to high ({ITEM.LASTVALUE})</name>
+                            <expression>{Template Kafka consumer groups:Kafka.GetConsumerGroupMetrics[{$KAFKA_NODE},{#CONSUMER_GROUP},lag].last()}&gt;50</expression>
+                            <name>{#CONSUMER_GROUP} Lag too high: {ITEM.LASTVALUE}</name>
                             <url/>
                             <status>0</status>
                             <priority>4</priority>
