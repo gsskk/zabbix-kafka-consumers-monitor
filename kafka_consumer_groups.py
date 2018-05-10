@@ -3,7 +3,7 @@ from kafka.client_async import KafkaClient
 from kafka.protocol import admin
 import time
 import threading
-import ssl
+#import ssl
 from kafka.protocol.group import MemberAssignment
 #import logging
 #logging.basicConfig(level=logging.DEBUG)
@@ -35,7 +35,7 @@ class KafkaConsumerGroups:
         self.sasl_plain_password = sasl_plain_password
         self.ssl_context = ssl_context
         self.timeout = timeout
-        self.client = KafkaClient(bootstrap_servers=kafka_brokers, security_protocol=security_protocol, sasl_mechanism=sasl_mechanism, sasl_plain_username=sasl_plain_username, sasl_plain_password=sasl_plain_password, ssl_context=ssl_context, timeout=timeout)
+        self.client = KafkaClient(bootstrap_servers=kafka_brokers, timeout=timeout)
         self.lag_topics_found = []
         self.lag_total = 0
 
@@ -153,12 +153,7 @@ class KafkaConsumerGroups:
     def get_lag_by_topic(self, group_name, topic):
         consumer = KafkaConsumer(
             bootstrap_servers=self.kafka_brokers,
-            group_id=group_name,
-            security_protocol=self.security_protocol,
-            sasl_mechanism=self.sasl_mechanism,
-            sasl_plain_username=self.sasl_plain_username,
-            sasl_plain_password=self.sasl_plain_password,
-            ssl_context=self.ssl_context
+            group_id=group_name
         )
         partitions_per_topic = consumer.partitions_for_topic(topic)
 
